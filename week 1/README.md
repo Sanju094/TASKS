@@ -10,7 +10,12 @@
         ◦ Use the strace command to observe the system calls made by your program.
         ◦ Explain which parts of the program operate in user space and which parts involve the kernel space.
         ◦ Extension: Research and explain the difference between a system call and a library function.
-2. Processor Speed (Instructions Per Second)
+
+    ![Screenshot from 2025-04-25 19-11-32](https://github.com/user-attachments/assets/87401570-1ed1-4e80-b9d1-cb15116cbf32)
+    ![Screenshot from 2025-04-25 19-43-24](https://github.com/user-attachments/assets/45d57c3e-6fc2-4d7e-b327-0c30a62414c0)
+   
+
+3. Processor Speed (Instructions Per Second)
     • Innovative Overview: 
         ◦ Think of a processor as a chef in a busy restaurant. The "instructions per second" is like the chef's cooking speed – how many dishes (operations) they can prepare in a second.
         ◦ Use-Case: 
@@ -23,7 +28,7 @@
         ◦ Modify the program to perform more complex operations or increase the loop iterations.
         ◦ Measure the new execution time and discuss how the processor's speed affects the overall performance.
         ◦ Extension: Research and explain CPU clock cycles, and how that relates to instructions per second.
-3. Multi-Core Processors
+4. Multi-Core Processors
     • Innovative Overview: 
         ◦ Instead of one chef, imagine a restaurant with multiple chefs (cores). They can work on different dishes simultaneously, dramatically increasing the restaurant's output.
         ◦ Use-Case: 
@@ -36,7 +41,7 @@
         ◦ Measure the execution time of both versions and compare the results.
         ◦ Discuss how multi-core processors can improve the performance of parallel tasks.
         ◦ Extension: Use the python multiprocessing module, and compare the results of threading vs multiprocessing.
-4. GPU & How It Works
+5. GPU & How It Works
     • Innovative Overview: 
         ◦ Think of a GPU as a specialized artist in a movie studio, focusing on visual effects. Unlike the chefs, this artist excels at parallel tasks, like rendering complex scenes.
         ◦ Use-Case: 
@@ -49,7 +54,7 @@
         ◦ Compare the execution time of the GPU version with a CPU version of the same program.
         ◦ Explain the advantages of using a GPU for parallel computations.
         ◦ Extension: Implement a simple matrix multiplication on the GPU, and compare it's speed to the CPU.
-5. Processes
+6. Processes
     • Innovative Overview: 
         ◦ A process is like an individual play being performed on a stage (the computer). Each play has its own actors (threads), props (data), and script (code).
         ◦ Use-Case: 
@@ -61,7 +66,7 @@
         ◦ Use the ps and top commands to observe the running processes and their resource usage.
         ◦ Explain how each instance of the program is a separate process with its own memory and resources.
         ◦ Extension: Use the fork() system call in a C program to create child processes, and observe their behaviour.
-6. Memory Layout & Management
+7. Memory Layout & Management
     • Innovative Overview: 
         ◦ Imagine memory as a library with different sections. Code is stored in the "script" section, variables in the "props" section, and dynamically allocated memory in the "flexible space" section.
         ◦ Use-Case: 
