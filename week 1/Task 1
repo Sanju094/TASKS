@@ -1,0 +1,64 @@
+Task 1:
+
+Architecture, User space, Kernel Space:
+
+ The applications can directly interact with the kernel so for that shell programming is used.
+
+  Kernel space -  helps to allocate resources for the process, handles I/O and        dfsfdsfsdfsdfsdfsdfsdfssecurity(permissions)
+  User space -  It is the application layer in the architecture where the users works on it.
+
+  When the application need to access a file, it send the request to the kernel and it validates the request and checks the security permissions then allow the application to access file.
+
+EXERCISE:
+1. Write  a simple C program that uses the write() system call to write a message to the standard output (stdout).
+  Ans:
+    #include<unistd.h>
+    #include<stdio.h>
+    int main(){
+    char c[] = "Hello everybody, How are you?";
+    write(1,c,24);  =>1 -> denotes stdout, c-> the payload that is c array, 24-> denotes the number of characters want to get printed as output.
+    printf("\n");}
+
+
+        write() speaks directly with the kernel but the printf() uses an intermediator(c library(Stdio)) to speak with the kernel.
+
+
+2.Use the strace command to observe the system calls made by your program.
+Ans:
+            For the above same program “strace” command is applied.
+            strace ./task => command to run the file using strace.
+            strace shows through which system calls(write, read,...) the user-space application communicates with the operating system.
+            In the above program user uses write command to talk to the is where write is the system call.
+
+
+3. Explain which parts of the program operate in user space and which parts involve the kernel space.
+Ans:		
+
+          Your code (variables, logic, library functions) → Runs in user space.
+          When you do something that needs OS help (like file I/O, process control) → A system call takes over, and that happens in kernel space.
+
+                            #include<unistd.h>
+                            #include<stdio.h> 
+                            int main(){
+                            char c[] = "Hello everybody, How are you?"; //user 
+                            write(1,c,24); //kernel 
+                            printf("\n"); //user => internally uses write -> enters kernel
+                            return 0; //user }
+
+4. Research and explain the difference between a system call and a library function.
+               System call:
+                	Directly talks to the OS.
+                	No formatting available.
+                	Performs low-level OS operations
+                	Runs in Kernel mode
+                	Eg: write(), read(), open(), ….
+               Library function:
+                	It uses an intermediate libraries for communication with OS.
+                	It has Format specifiers.
+                	Performs high-level operations.
+	                Runs in User mode.
+                  Eg:Scanf(), Printf(),......
+
+
+
+
