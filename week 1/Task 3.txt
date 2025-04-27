@@ -34,17 +34,6 @@ Context switching is the process of saving the state of a currently running thre
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 LAB:
 1. Write a Python program that performs a time-consuming task (e.g., calculating prime numbers) in a single thread.
 Ans:
@@ -176,7 +165,6 @@ Time taken: 1.36 seconds
 
         
 Comparing the time for same program using m=single threaded, multithreaded and multiprocessing. Multiprocessing is more efficient . As because multithreading in python uses GIL the time taken to complete the task sometimes takes more time or same amount of time compared to singlethreaded.
-
 
 
 
