@@ -1,0 +1,183 @@
+﻿Task 3:
+Multi-Core Processors
+The tasks are shared between multiple CPU’s and are executed parallely to complete the tasks sooner is called multi-core.
+For eg:  Multiple chef’s shares the works.  so, that the work can be done faster.
+Each core can handle more than one thread at a time. The number of threads to be handled by the core is decided by the complexity of the thread. 
+
+
+Core      -> is a processing unit that executes instructions independently.
+Process -> it is just a environment where the thread runs.
+Thread   -> it is the sequence of instructions that is executed by the core.
+
+
+Analogy will be 
+        Core-> Thread(available inside the process not directly in the core)
+
+
+For eg: MS word
+Process  -> word
+Thread    -> writing, grammar checking,etc….
+
+
+In multicore depending upon the complexity of the task that is threads are assigned to the task, if the complexity is high then one thread is fully dedicated to the task, if the complexity is less the one thread will be assigned to more than one task. 
+
+
+1 core = 1 thread => basic setup
+One core can Handle more than one thread by the technology of hyper threading(Intel)(In hyperthreading each core handle max of 2 threads) and SMT(AMT).
+
+
+              eg: if I am using word, chrome and also hearing a song with video if all the tasks are running at a same time it requires more than 25 thread what happens.
+                Ans:        In these type of scenarios context switching comes into picture
+
+
+Context switching is the process of saving the state of a currently running thread and loading the state of another thread. This allows the CPU to switch between different tasks (threads), giving the illusion of multitasking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LAB:
+1. Write a Python program that performs a time-consuming task (e.g., calculating prime numbers) in a single thread.
+Ans:
+import time
+def isprime(a):
+    if a<2:
+        return False
+    for i in range (2,(a//2)+1):
+        if a%i == 0:
+            return False
+    return True
+        
+a = int(input())
+start = time.time()
+for i in range (1,a):
+    if(isprime(i)):
+        print(i, end=" ")
+end  = time.time()
+print(f"Time taken: {end - start:.2f} seconds")
+Output:
+             Time taken: 1.67 seconds
+
+
+2. Modify the program to use the threading module to perform the task in multiple threads.
+import time
+import threading
+
+
+def isprime(a):
+    if a<2:
+        return False
+    for i in range (2,(a//2)+1):
+        if a%i == 0:
+            return False
+    return True
+
+
+def primes(start,end,p_list):
+    for i in range(start,end+1):
+        if isprime(i):
+            p_list.append(i)
+    return p_list
+    
+a = int(input())
+start_t = time.time()
+
+
+p_list = []
+thread1 = threading.Thread(target=primes, args=[1,a//2,p_list])
+thread2 = threading.Thread(target=primes, args=[a//2,a,p_list])
+
+
+thread1.start()
+thread2.start()
+
+
+thread1.join()
+thread2.join()
+
+
+p_list.sort()
+
+
+end_t = time.time()
+
+
+print(f"Time taken: {end_t - start_t:.2f} seconds")
+ 
+Output: 
+50000
+Time taken: 1.84 seconds
+
+
+
+
+5. Use the python multiprocessing module, and compare the results of threading vs multiprocessing.
+
+
+Ans:
+import multiprocessing
+import time
+
+
+def isprime(a):
+    if a<2:
+        return False
+    for i in range (2,(a//2)+1):
+        if a%i == 0:
+            return False
+    return True
+    
+def primes(start,end,p_list):
+    for i in range(start,end+1):
+        if isprime(i):
+            p_list.append(i)
+    return p_list
+    
+a = int(input())
+start_t = time.time()
+
+
+p_list = []
+process1 = multiprocessing.Process(target=primes, args=[1,a//2,p_list])
+process2 = multiprocessing.Process(target=primes, args=[a//2,a,p_list])
+
+
+process1.start()
+process2.start()
+
+
+process1.join()
+process2.join()
+
+
+p_list.sort()
+
+
+end_t = time.time()
+
+
+print(f"Time taken: {end_t - start_t:.2f} seconds")
+
+
+
+Output:
+50000
+Time taken: 1.36 seconds
+
+
+        
+Comparing the time for same program using m=single threaded, multithreaded and multiprocessing. Multiprocessing is more efficient . As because multithreading in python uses GIL the time taken to complete the task sometimes takes more time or same amount of time compared to singlethreaded.
+
+
+
+
+Multicore processors improve parallel tasks because multiple cores can work on different parts of the same task at the same time, or on completely different tasks simultaneously, leading to faster overall execution.
