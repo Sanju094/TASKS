@@ -1,0 +1,160 @@
+﻿Task 5
+
+
+Process
+
+
+It is a program in execution
+Each process runs individually that they have its own memory space, own environment, etc…
+Normally, Process does not share memory but by some techniques like IPC we can the process to share memory. 
+
+
+Process Analogy:
+        Threads   -  do the actual work inside the process
+        Props             -  the data and variables(used by the process)
+        Script        -  Program code
+
+
+Each process has its own memory, process ID, resources everything unique. So, that it does not interfere with other processes.
+
+
+[Process A]         [Process B]         [Process C]
+ | Memory A |        | Memory B |        | Memory C |
+ |  Code A  |        |  Code B  |        |  Code C  |
+ | ThreadsA |        | ThreadsB |        | ThreadsC |
+
+
+Eg: if chrome and vscode are running at the same time, both are different processes but they don’t share their memory and they don’t interfere with each other.
+
+
+
+
+When processes need to share memory, they can use IPC techniques such as shared memory, but this is done under the supervision of the OS to prevent accidental interference.
+
+
+LAB:
+1. Write a shell script that         starts multiple instances of a long-running program (e.g., a loop that prints numbers).
+ 
+Ans:
+long_running(){
+        for i in {1..10}
+        do
+                echo "Process ID $$ : $i"
+                sleep 1
+        done
+}
+
+
+for i in {1..5}                               // these are the 5 instances
+        do
+                long_running &      //this is the function call
+                echo "started process $i"
+        Done
+            Output:
+Command:  ./Task5.sh
+started process 1
+started process 2
+started process 3
+Process ID 4454 : 1
+Process ID 4454 : 1
+Process ID 4454 : 1
+started process 4
+started process 5
+Process ID 4454 : 1
+Process ID 4454 : 1
+Process ID 4454 : 2
+Process ID 4454 : 2
+Process ID 4454 : 2
+Process ID 4454 : 2
+Process ID 4454 : 2
+Process ID 4454 : 3
+Process ID 4454 : 3
+Process ID 4454 : 3
+Process ID 4454 : 3
+Process ID 4454 : 3
+Process ID 4454 : 4
+Process ID 4454 : 4
+Process ID 4454 : 4
+Process ID 4454 : 4
+Process ID 4454 : 4
+Process ID 4454 : 5
+Process ID 4454 : 5
+Process ID 4454 : 5
+Process ID 4454 : 5
+Process ID 4454 : 5
+Process ID 4454 : 6
+Process ID 4454 : 6
+Process ID 4454 : 6
+Process ID 4454 : 6
+Process ID 4454 : 6
+Process ID 4454 : 7
+Process ID 4454 : 7
+Process ID 4454 : 7
+Process ID 4454 : 7
+Process ID 4454 : 7
+Process ID 4454 : 8
+Process ID 4454 : 8
+Process ID 4454 : 8
+Process ID 4454 : 8
+Process ID 4454 : 8
+Process ID 4454 : 9
+Process ID 4454 : 9
+Process ID 4454 : 9
+Process ID 4454 : 9
+Process ID 4454 : 9
+Process ID 4454 : 10
+Process ID 4454 : 10
+Process ID 4454 : 10
+Process ID 4454 : 10
+Process ID 4454 : 10
+
+
+The process id will be same for all instance because it is printing the pid of the main script.
+            All the background tasks that run inside the same process(so only pid is same for all instances) not different process.
+        Each number is printed nearly 5 times.
+
+
+   2. Use the ps and top commands to observe the running processes and their resource usage.
+Ans: ps(process status):
+Shows the status of the program that are running right now.
+        ps aux:
+Shows the status of all the programs running in the system.
+        top:
+Show the status of the process running in the system for some time(real time monitoring
+While running these command the pid of the bash only shown not the individual pid of the program
+         
+   3. Explain how each instance of the program is a separate process with its own memory and resources.
+         Each instance is treated as a separate process by OS so each process has its own memory and its own resources they are not shared.
+
+
+      4. Use the fork() system call in a C program to create child processes, and observe their behaviour.
+Ans:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+
+int main(){
+pid_t pid;
+pid = fork();
+if(pid == 0)
+{printf("child process");}
+else
+{printf("parent");}
+}
+
+
+If pid == 0  then child process is running
+If pid < 0  fork failed(process is not created)
+            If pid > 0  parent process is running
+
+
+When the fork is called a child process gets created.
+For n fork calls, 2*n child process gets created.
+
+
+The parent process creates a child process using fork() to handle a task. The child executes the task, and then exits when done. The parent can wait for the child or spawn another one as needed.
+
+
+The  parent process acts as an intermediary between command and the child process.
+The parent passes the tasks to the child , where the child process services the task independently.
