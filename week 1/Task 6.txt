@@ -1,0 +1,250 @@
+﻿Task 6
+Memory Layout and Management
+
+
+Memory is like a Library in that the code(Text Segment) is stored in the script section and the variables(Data Segment) are stored in the props section and the dynamically allocated memory(Heap) in the flexible section and the function calls are stored in the stack for quick and orderly access.
+        Memory management is very important for better performance.
+        
+Lab:
+1. Write a C program that dynamically allocates memory using malloc() and forgets to free it (a memory leak).
+Ans: 
+
+
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+int *p = (int*)malloc(10*sizeof (int));
+for(int i=0;i<10;i++)
+{
+p[i] = i*2;
+printf("%d",p[i]);
+}
+printf("/n");
+return 0;
+}
+
+In this code the allocated memory is not get free so it causes memory leak here.
+
+
+
+
+2.    Use the valgrind tool to detect and analyze the memory leak.
+Ans:
+Valgrind is a tool used to detect the memory leaks.
+
+
+i. install the valgrind tool in the ubuntu using the below command:
+                sudo snap install valgrind –classic
+ii. Run the above program using valgrind command to detect the memory leaks.
+                Valgrind –leak-check=full ./Task6 (or) gcc -fsanitize=address -g Task6.c -o Task6
+Output: 
+=================================================================
+==15440==ERROR: LeakSanitizer: detected memory leaks
+
+
+Direct leak of 40 byte(s) in 1 object(s) allocated from:
+    #0 0x7198080fd9c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x58552a8fc23e in main /home/sanjuga/Task6.c:4
+    #2 0x719807c2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x719807c2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x58552a8fc164 in _start (/home/sanjuga/Task6+0x1164) (BuildId: 0df96d389dfff27dd2a79323d9280a044c458c43)
+
+
+SUMMARY: AddressSanitizer: 40 byte(s) leaked in 1 allocation(s).
+
+
+The above code has a memory leak it is detected by the valgrind tool.
+
+
+3. Modify the program to correctly free the allocated memory.
+Ans:
+
+
+ #include<stdio.h>
+#include<stdlib.h>
+int main(){
+int *p = (int*)malloc(10*sizeof (int));
+for(int i=0;i<10;i++)
+{
+p[i] = i*2;
+printf("%d",p[i]);
+}
+printf("/n");
+free(p);
+return 0;
+}
+
+
+The memory gets free at the end so no memory will happens
+
+sanjuga@sanjuga:~$ gcc Task6.c -o Task6
+sanjuga@sanjuga:~$ gcc -fsanitize=address -g Task6.c -o Task6
+sanjuga@sanjuga:~$ ./Task6
+024681012141618
+
+
+4. Use pmap to view the memory map of a running process, and explain the different memory segments.
+         
+pmap -  it shows the how the memory gets mapped for the program. Like it gives the blueprint of the memory.
+
+
+sanjuga@sanjuga: gcc Task6.c -o Task6
+sanjuga@sanjuga:~$ ./Task6 &
+[2] 16207
+sanjuga@sanjuga:~$ pmap 16207
+16207:   ./Task6
+0000628fd08df000      4K r---- Task6
+0000628fd08e0000      4K r-x-- Task6
+0000628fd08e1000      4K r---- Task6
+0000628fd08e2000      4K r---- Task6
+0000628fd08e3000      4K rw--- Task6
+0000628fdd656000    132K rw---   [ anon ]
+00007caa94600000    160K r---- libc.so.6
+00007caa94628000   1568K r-x-- libc.so.6
+00007caa947b0000    316K r---- libc.so.6
+00007caa947ff000     16K r---- libc.so.6
+00007caa94803000      8K rw--- libc.so.6
+00007caa94805000     52K rw---   [ anon ]
+00007caa948fc000     12K rw---   [ anon ]
+00007caa94910000      8K rw---   [ anon ]
+00007caa94912000     16K r----   [ anon ]
+00007caa94916000      8K r-x--   [ anon ]
+00007caa94918000      4K r---- ld-linux-x86-64.so.2
+00007caa94919000    172K r-x-- ld-linux-x86-64.so.2
+00007caa94944000     40K r---- ld-linux-x86-64.so.2
+00007caa9494e000      8K r---- ld-linux-x86-64.so.2
+00007caa94950000      8K rw--- ld-linux-x86-64.so.2
+00007ffd6d57a000    132K rw---   [ stack ]
+ffffffffff600000      4K --x--   [ anon ]
+ total             2684K
+
+
+This output shows the 
+<address>   <size> <perm> <mapping>   for each line 
+ –r -> readable
+rw -> writable
+rx -> executable
+
+This output shows the memory address, size of the memory that has been allocated, then the permissions given for that , then to which file the memory is mapped
+
+
+
+
+
+
+5. Create a program that causes a segmentation fault by accessing memory out of bounds. Use gdb to debug the issue.
+
+
+Ans:
+A segmentation fault is a runtime error that occurs when your program tries to access memory it’s not allowed to.
+Gdb is a Gnu debugger used to debug and find crashes or error in the every line of the code.
+gdb (GNU Debugger) is a debugging tool for C, C++, and other languages. It helps you find bugs in your program.
+
+Program:
+
+
+#include <stdio.h>
+
+
+int main() {
+    int *ptr = NULL;  // NULL pointer
+
+
+    // Trying to write to NULL pointer causes segmentation fault
+    *ptr = 10;
+
+
+    return 0;
+}
+
+
+Commands and output:
+sanjuga@sanjuga:~$ gcc segfault.c -o segfault
+sanjuga@sanjuga:~$ gdb segfault
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from segfault...
+
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) Quit
+(gdb) quit
+sanjuga@sanjuga:~$ gcc segfault.c -o segfault
+sanjuga@sanjuga:~$ gdb segfault
+GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from segfault...
+
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) y
+Debuginfod has been enabled.
+To make this setting permanent, add 'set debuginfod enabled on' to .gdbinit.
+Downloading separate debug info for /home/sanjuga/segfault
+--Type <RET> for more, q to quit, c to continue without paging--                
+(No debugging symbols found in segfault)
+(gdb) run
+Starting program: /home/sanjuga/segfault 
+Downloading separate debug info for system-supplied DSO at 0x7ffff7fc3000
+[Thread debugging using libthread_db enabled]                                   
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+
+Program received signal SIGSEGV, Segmentation fault.
+0x000055555555513d in main ()
+(gdb) backtrace
+#0  0x000055555555513d in main ()
+(gdb) run
+The program being debugged has been started already.
+Start it from the beginning? (y or n) n
+Program not restarted.
+(gdb) run
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/sanjuga/segfault 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+
+Program received signal SIGSEGV, Segmentation fault.
+0x000055555555513d in main ()
+(gdb) 
+
+
+
+
+
+
+GNU provides the tools and utilities that allow us to run and interact with commands in the terminal.
+
+Where gcc, gdb, glib, bash are some of the GNU’s core tools.
