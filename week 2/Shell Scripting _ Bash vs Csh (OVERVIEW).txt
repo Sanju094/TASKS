@@ -1,0 +1,56 @@
+﻿Shell Scripting : Bash vs Csh
+
+
+Both Bash and Csh are scripting languages or unix shell languages. 
+
+
+Shell:
+
+
+Text editor - code is written
+Terminal - the commands are given to run the code
+Shell - It is the brain that reads the command and says the operating system that this is bash  script so run it using bash.
+
+
+Shell says the os to run this file using this language.
+
+
+No matter the language, the shell always acts as the middleman, telling the OS:
+“Run this command or program.”
+
+When the script/program is written in Bash or Csh (shell languages):
+* The shell itself interprets the commands line-by-line at runtime.
+
+* The shell understands the syntax and executes commands directly (sometimes calling other OS programs).
+When the program is written in other languages like C or Python:
+   * The shell does NOT interpret the code.
+
+   * Instead, it tells the OS to run the already compiled executable (C) or the language interpreter (Python) which then runs the code.
+
+
+Bash:
+Bash is the most commonly used shell today. It is:
+      * Bash has many features that make it easier to use interactively.
+
+      * It supports rich scripting capabilities (like arrays, functions, better I/O handling).
+
+      * Bash closely follows POSIX standards, making scripts portable across Unix systems.
+Default shell in most Linux distributions and macOS.
+
+      * Command-line editing, tab-completion, command history, etc. are of the features.
+
+Csh(C Shell):
+
+
+csh was developed to be more C-like in syntax, which appealed to programmers who were used to the C language.
+         * Its structure (like if, switch) resembles C, making it more familiar for C programmers.
+         * Introduced early command history and aliasing features.
+         * Csh is older and has limited scripting features. tcsh (an improved version) is often used instead.
+
+________________
+ Drawbacks of csh
+            * Poor scripting capability: It has many scripting bugs and inconsistencies (especially with I/O redirection and error handling).
+
+            * Not POSIX-compliant: Makes portable scripting difficult.
+
+            * tcsh is better than csh, but still not recommended for complex scripting.
