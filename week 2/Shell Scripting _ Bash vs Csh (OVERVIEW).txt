@@ -41,16 +41,21 @@ Default shell in most Linux distributions and macOS.
 
 Csh(C Shell):
 
-
 csh was developed to be more C-like in syntax, which appealed to programmers who were used to the C language.
          * Its structure (like if, switch) resembles C, making it more familiar for C programmers.
          * Introduced early command history and aliasing features.
          * Csh is older and has limited scripting features. tcsh (an improved version) is often used instead.
 
-________________
- Drawbacks of csh
+
+Drawbacks of csh:
             * Poor scripting capability: It has many scripting bugs and inconsistencies (especially with I/O redirection and error handling).
 
             * Not POSIX-compliant: Makes portable scripting difficult.
 
             * tcsh is better than csh, but still not recommended for complex scripting.
+
+#!/bin/bash:
+
+This line is called a "shebang.
+#!/bin/bash => this says the os to run the program using bash.
+If this line not given in the program the bash program should run using the command “bash ./filename.sh” . If it is given in the program then just the program by using command “./filename.sh”
