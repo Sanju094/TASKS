@@ -100,4 +100,32 @@
     
     echo "${result[@]}"
 
-Csh:
+output:
+
+sanjuga@sanjuga:~$ bash func_bash.sh
+Enter num1:66
+Enter num2:44
+1. Add 2. Subtract 3. Multiply 4. Divide 5. Exit
+Enter the choice1
+110
+Enter num1:55
+Enter num2:22
+1. Add 2. Subtract 3. Multiply 4. Divide 5. Exit
+Enter the choice2
+33
+Enter num1:44
+Enter num2:22
+1. Add 2. Subtract 3. Multiply 4. Divide 5. Exit
+Enter the choice3
+968
+Enter num1:77
+Enter num2:33
+1. Add 2. Subtract 3. Multiply 4. Divide 5. Exit
+Enter the choice4
+2
+Enter num1:4
+Enter num2:4
+1. Add 2. Subtract 3. Multiply 4. Divide 5. Exit
+Enter the choice5
+110 33 968 2
+
