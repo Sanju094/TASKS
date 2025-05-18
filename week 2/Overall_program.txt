@@ -1,6 +1,6 @@
-Write scripts in both Bash and Csh that prompt the user for input and perform different actions based on the input.
 
- This below program includes concepts like if-else, switch, loops, functions, error handling
+
+ This below program includes concepts like if-else, switch, loops, functions, error handling and array.
 
   Bash:
     result=()
