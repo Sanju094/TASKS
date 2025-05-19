@@ -347,34 +347,17 @@ set l1 = ( $<         )
 echo "$l1"
 
 
-
-
-
-
 Some differences between bash and csh in arrays:
 
 
-Aspect
-	Bash
-	C Shell
-	Index Starts
-	0
-	1
-	Dynamic Input
-	read -a arr
-	set arr = ( $< )
-	Element Access
-	${arr[0]}
-	$arr[1]
-	All Elements
-	${arr[@]}
-	$arr[*]
-	Supports Append
-	a += 5
-	list = ($list 6)
-	Length
-	${#arr[@]}
-	$#arr
+Aspect						Bash                                         C Shell
+
+Index Starts					0						1
+Dynamic Input					read -a arr					set arr = ( $< )
+Element Access					${arr[0]}					$arr[1]
+All Elements					${arr[@]}					$arr[*]
+Supports Append					a += 5						list = ($list 6)
+Length						${#arr[@]}					$#arr
 	
 
 
@@ -389,14 +372,14 @@ Full scripting support (functions, local variables, return values, etc.)
 Functions:
                 greet(){
                         echo “hi $1”
-}
-greet “Sanjuga”
+		}
+		greet “Sanjuga”
 
 
 $1 => this indicates the 1st parameter
 
 
-   Csh:
+Csh:
 Lacks scripting functions; use external scripts or aliases as a workaround
 It doesn’t allow defining reusable code blocks (functions) within a script.
 Csh do not have the concept of functions.
@@ -412,8 +395,7 @@ Eg:
 alias greet 'echo "hello \!*"'
 greet "sanjuga"
 
-
- \!* => represents all the parameters passed.
+\!* => represents all the parameters passed.
 
 
 Error Handling
@@ -426,7 +408,7 @@ In both bash and csh error handling is just done using if-else statement checkin
 
 
 Bash:
-It is the default language in linux
+It is the default language in linux.
 
 
 ls - list all the files in the directory
@@ -445,11 +427,11 @@ tail - displays the last line in the file
 
 Csh(Cshell)
         It is not a default language so to change the terminal to csh run the command csh in the terminal.
-        Csh also have most of the commands used by bash
-            Comparing to bash csh is more interactive.
+        Csh also have most of the commands used by bash.
+        Comparing to bash csh is more interactive.
 
 
-        fg - brings the background jobs to the foreground
+fg - brings the background jobs to the foreground
 bg - move the process to the background
 jobs - lists the stopped and running process
 setenv - set the environment variable
