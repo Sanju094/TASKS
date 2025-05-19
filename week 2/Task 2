@@ -1,0 +1,14 @@
+2. File Processing: 
+      ▪ Write scripts in both Bash and Csh that loop through a directory of files and print their names.
+      ▪ Compare the syntax and efficiency of both scripts.
+
+Bash:
+      for file in *.sh
+      do
+      	size=$(stat -c%s $file)
+      	if [ $size -gt 100 ]; then
+      		echo "$file"
+      	else
+      		echo "smaller"
+      	fi
+      done
