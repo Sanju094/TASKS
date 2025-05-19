@@ -1,0 +1,439 @@
+﻿Commands to Run the code:
+
+
+Bash - bash filename.sh
+Csh - csh filename.csh
+
+
+To get input dynamically
+
+
+bash
+use read keyword
+Eg: read -p “enter number” a
+read => keyword to read the input given by the user
+-p => prompt
+a => variable to store the input value
+
+
+csh
+
+
+1. Variable Handling:
+When writing scripts that involve complex variable manipulation, Bash's syntax is generally preferred.
+Bash 
+syntax 
+                Variable name=input
+No space should be present before and after equalto “=” symbol.
+For single word string value double quotes is not needed.
+To access the variable use “$”.
+In bash, the mathematical operations should only given inside the ((aa+aa)). 
+Uninitialized variables while printing will print a empty space.
+Eg:
+Name=Sanjuga
+Age=21
+echo”$Name”
+aa=$((age + age))
+echo”$aa”
+           Csh(C shell)
+                Syntax
+Variable name = input value
+There should be  space before and after equalto “=” symbol.
+For single word string value double quotes is not needed.
+If more than one word(Sentence) is assigned to the variable but without any quotes then while accessing the variable only first word will gets printed. 
+To access the variable use “$”.
+Use “set” keyword to declare the variable
+While writing arithmetic expressions  in csh use “@” instead of “set” and in the mathematic exp the space should be given between the symbol.
+Eg:
+set Name = Sanjuga
+@ aa = $age + $age
+echo “$Name and $aa”
+
+
+2. Control Structures
+if-else:
+Bash:
+Syntax:
+if [ expression ]; then
+echo “ ”
+elif [ expression ]; then
+echo “ ”
+else
+echo “ ”
+fi
+Clearly note, In the above syntax there should be a space before and after the expression.
+In the expression the symbol are displayed as 
+        -gt -> greater than
+        -lt -> less than
+        -eq -> equal to
+        -le -> less than or equal to
+                -ge -> greater than or equal to
+Csh: Syntax:
+if (expression) then
+echo “ ”
+elseif (expression) then
+echo “ ”
+else
+echo “ ”
+endif
+Expression can use normal symbols like >,<,== etc…
+For Loop:
+Bash:
+Bash has two different for loops 
+1. Normal C-style loop(not used mostly)
+2. For-in loop
+1.Normal C-style for loop
+for(( i=0;i<n;i++ ))
+do
+        echo "hi”
+done
+It is mostly used while iterating over a number.
+2.For-in loop
+        for x in a,b,c
+do
+                echo “$x”
+done
+Used to iterate over lists.
+Csh:
+Csh do not have forloop instead it has foreach loop.
+Syntax: 
+foreach i (a b c) 
+echo “$i”
+end
+If this end is not given then “a”  gets printed then loop not gets iterated. If end is given  then the loop gets iterated and it prints all the values.
+Instead of a b c, the values can also be passed
+Eg:
+set a = 12
+set b = 23
+set c = 34
+set d = (1 2 3)
+foreach x ( $a $b $c $d )
+        echo "$x"
+end
+
+
+While-Loop:
+Bash:
+ Syntax:
+while [ condition ]
+do
+         #commands
+done
+
+
+Csh:
+        while (condition) 
+#commands
+end
+There should be space before and after the expression while do some arithmetic.
+Case Statements
+Bash 
+Syntax:
+case variable_name in
+pattern)
+echo “” #commands
+;;
+pattern)
+echo “” #commands
+;;
+*)
+        echo “” #commands
+;;
+esac
+Csh:
+Syntax:
+        switch $variable_name
+        case 1:
+#commands
+Breaksw
+case 2:
+#commands
+breaksw
+default:
+        #commands
+        Breaksw
+exitsw
+
+
+Comparison of Bash and Csh:
+Bash
+* it uses if, elif, else, fi order
+* The condition should be given in “[  ]”and at the end “;” should be given.
+* In the arithmetic operations or conscious space is not needed to be given after and before the operator.
+* Both for and for-in loop are available in bash.
+* In loops, start with “do” and end with “done”.
+* Arithmetic operations eg: i=$((i-1))
+* In case, starts with “case” and ends with “esac” , the branches should be “)”, end of single case should have “;;”. After all the cases at the default case use “*)” .
+Csh
+* It uses if, else if, else, endif
+* The condition should be given inside the “()”
+* In the arithmetic operations or conscious space should be given after and before the operator.
+* Only for-each loop
+* In loops, end with “end“ keyword.
+* Arithmetic operations eg: @ e = $e + $x
+* In case, it starts with “switch” and ends with “endsw”. For the end of each case use ”breaksw”  statement. And also it has a default case given as “default”.
+Stat:
+stat keyword is used to find the size of the file.
+ Syntax: stat -c%s filename
+ -c  => custom format( it says the stat command that the output will be in the %s format)
+%s => Filesize in bytes.
+
+
+%s can also be replaced with 
+        %n  => Filename
+        %y  => Last modification time
+        %U => Owner name
+
+
+Eg:(bash)
+
+
+for file in *.txt
+do
+        size=$(stat -c%s $file)
+        if [ $size -gt 100 ]; then
+                echo "greater"
+        else
+                echo "smaller"
+        fi
+done
+
+
+Use “bash filename.sh” command to run the program
+
+
+stat can also be used to run the file from terminal. While using stat command the details of the file will be displayed.
+                         stat filename.sh
+Using csh:
+foreach file (*.sh)
+        set ff = `stat -c%s $file`
+        if ($ff > 100) then
+                echo "greater"
+        else
+                echo "smaller"
+        endif
+end
+        
+
+
+Eg: 
+sanjuga@sanjuga:~$ stat While_bash.sh
+  File: While_bash.sh
+  Size: 112               Blocks: 8          IO Block: 4096   regular file
+Device: 8,2        Inode: 5379598     Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/ sanjuga)   Gid: ( 1000/ sanjuga)
+Access: 2025-05-17 18:44:48.676508745 +0530
+Modify: 2025-05-17 18:44:47.141741755 +0530
+Change: 2025-05-17 18:44:47.186764255 +0530
+ Birth: 2025-05-17 18:44:47.138740255 +0530
+
+
+In bash and csh for writing commands in the program only ` ` need to be used.
+For example: files = `ls’ in both 
+
+
+
+
+3. Array Handling
+
+
+Bash:
+
+
+Syntax: 
+a=(val1 val2 ….)
+
+
+Bash do not supports Multi-dimensional array.
+
+
+Program:
+
+
+1. Declaring the array statically and accessing the element by its index
+
+
+arr=(1 2 3 4)
+echo "${arr[3]}" #for accessing single element"
+
+
+2. Accessing the elements by using for-in loop
+for a in ${arr[@]}
+do
+echo "$a"
+done
+
+
+3. Length of the array
+                
+echo "${#arr[@]}" 
+
+
+4. Update the array
+arr[2]=89
+echo "${arr[@]}" #update the array elements
+
+
+5. Inserting elements at any place in the array
+read -a arr1 -p "ENTER THE ARRAY"
+echo "${arr1[@]}"
+echo "${#arr1[@]}"
+arr1+=(99)   #appends value at the end
+echo "${arr1[@]}"
+
+
+6. Deleting elements by index
+unset 'arr1[3]'
+arr1=("${arr1[@]}") #re-indexing 
+echo "${arr1[@]}"
+
+
+unset keyword is used to delete the value from the array after deleting the value the array need to be re-indexed if not then the deleted element is not updated in the array.
+
+
+
+
+Csh:
+Syntax:
+A = (val1 val2 val3 ….)
+
+
+There is no array in the csh instead there is a list that can be used as array it is called as pseudo-array.
+
+
+Program:
+
+
+1.Declaring the array statically and accessing the element by its index
+set list = (1 2 3 4)
+foreach x ($list)
+echo "$x"
+end
+
+
+2. accessing elements with index
+echo "$list[3]"
+
+
+3. length
+echo "len $#list"
+
+
+4. updation
+set list[3] = 5
+echo "$list[3]"
+
+
+5. insertion
+set list = ($list 6)
+echo "$list"
+
+
+6. deletion
+set newlist = ()
+@ i =1
+while($i <= $#list)
+if ($i != 3) then
+set newlist = ($newlist $list[$i])
+endif
+@ i++
+end
+echo "$newlist"
+
+
+7. reading the input from the user
+echo "Enter the array elements:"
+set l1 = ( $<         )
+echo "$l1"
+
+
+Some differences between bash and csh in arrays:
+
+
+Aspect						Bash                                         C Shell
+
+Index Starts					0						1
+Dynamic Input					read -a arr					set arr = ( $< )
+Element Access					${arr[0]}					$arr[1]
+All Elements					${arr[@]}					$arr[*]
+Supports Append					a += 5						list = ($list 6)
+Length						${#arr[@]}					$#arr
+	
+
+
+
+4.  Scripting Functions
+
+
+Bash:
+Full scripting support (functions, local variables, return values, etc.)
+
+
+Functions:
+                greet(){
+                        echo “hi $1”
+		}
+		greet “Sanjuga”
+
+
+$1 => this indicates the 1st parameter
+
+
+Csh:
+Lacks scripting functions; use external scripts or aliases as a workaround
+It doesn’t allow defining reusable code blocks (functions) within a script.
+Csh do not have the concept of functions.
+Function can be written using alias or each function is written in the separate file.
+
+
+Using alias:
+Alias don’t work for mathematical operations. It is only used for printing.
+It is only used for very simple operations.
+
+
+Eg:
+alias greet 'echo "hello \!*"'
+greet "sanjuga"
+
+\!* => represents all the parameters passed.
+
+
+Error Handling
+In both bash and csh error handling is just done using if-else statement checking things like whether the input given is integer, like whether the given input is positive etc….. According to the need of the program the error can be handled.
+
+
+
+
+5. History and Interactive Use
+
+
+Bash:
+It is the default language in linux.
+
+
+ls - list all the files in the directory
+pwd - print the directory in which currently we are
+alias (eg : alias rithi “pwd”) - to set the name for commands
+unalias - remove the name set to commands (eg: unalias rithi)
+history - shows all the commands that are ran in the terminal until now.
+!! - runs the previous command
+!1 - runs the first command in the history
+!-1 - runs the last command in the  history
+head -displays the first line in the file
+tail - displays the last line in the file
+        top - displays information about the process for some minutes
+        ps - displays information about the currently running program
+
+
+Csh(Cshell)
+        It is not a default language so to change the terminal to csh run the command csh in the terminal.
+        Csh also have most of the commands used by bash.
+        Comparing to bash csh is more interactive.
+
+
+fg - brings the background jobs to the foreground
+bg - move the process to the background
+jobs - lists the stopped and running process
+setenv - set the environment variable
+unsetenv - unset the environment variable
+sort - sort lines of the text
