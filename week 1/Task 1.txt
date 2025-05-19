@@ -28,7 +28,7 @@ Ans:
             For the above same program “strace” command is applied.
             strace ./task => command to run the file using strace.
             strace shows through which system calls(write, read,...) the user-space application communicates with the operating system.
-            In the above program user uses write command to talk to the is where write is the system call.
+            In the above program user uses write command to talk to the OS is where write is the system call.
 
 
 3. Explain which parts of the program operate in user space and which parts involve the kernel space.
