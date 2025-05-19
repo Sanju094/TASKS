@@ -1,0 +1,32 @@
+1. Basic Script Comparison: 
+      ▪ Write a simple script in both Bash and Csh that prints "Hello, World!" and the current date and time.
+      ▪ Compare the syntax and execution of both scripts.
+
+
+hello.sh:
+    c="hello world"
+    echo "$c"
+    echo `date` 
+
+output:
+    sanjuga@sanjuga:~$ bash hello_bash.sh
+    hello world
+    Mon May 19 08:37:37 PM IST 2025
+
+
+hello.csh
+    c = "hello world"
+    echo "$c"
+    echo `date`
+
+output:
+    sanjuga@sanjuga:~$ csh hello_csh.csh
+    hello world
+    Mon May 19 08:37:37 PM IST 2025
+
+
+
+comparsion:
+  - In both the programs I declared the variable and stored the word "hello world" in bash no space after and before the "=" symbol,
+and in csh there should be a space before and after the "=".
+  - In both languages to run a shell command use ``(backticks).
