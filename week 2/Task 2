@@ -3,12 +3,56 @@
       ▪ Compare the syntax and efficiency of both scripts.
 
 Bash:
-      for file in *.sh
-      do
-      	size=$(stat -c%s $file)
-      	if [ $size -gt 100 ]; then
-      		echo "$file"
-      	else
-      		echo "smaller"
-      	fi
-      done
+            for file in *.sh
+            do
+            	size=$(stat -c%s $file)
+            	if [ $size -gt 100 ]; then
+            		echo "$file = greater"
+            	else
+            		echo "$file = smaller"
+            	fi
+            done
+
+output:
+
+sanjuga@sanjuga:~$ bash file_bash.sh
+            Array_bash.sh = greater
+            file_bash.sh = greater
+            For_bash.sh = smaller
+            func_bash.sh = greater
+            hello_bash.sh = smaller
+            if_bash.sh = greater
+            long_running_program.sh = smaller
+            long_running.sh = smaller
+            switch_bash.sh = greater
+            Task5.sh = greater
+            Variable_bash.sh = smaller
+            While_bash.sh = greater
+
+
+Csh:
+            foreach file (*.sh)
+            	set ff = `stat -c%s $file`
+            	if ($ff > 100) then
+            		echo "$file = greater"
+            	else
+            		echo "$file = smaller"
+            	endif
+            end
+
+output:
+sanjuga@sanjuga:~$ csh file_csh.csh
+            Array_bash.sh = greater
+            For_bash.sh = smaller
+            Task5.sh = greater
+            Variable_bash.sh = smaller
+            While_bash.sh = greater
+            file_bash.sh = greater
+            func_bash.sh = greater
+            hello_bash.sh = smaller
+            if_bash.sh = greater
+            long_running.sh = smaller
+            long_running_program.sh = smaller
+            switch_bash.sh = greater
+
+
