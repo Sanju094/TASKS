@@ -15,7 +15,7 @@ Bash:
 
 output:
 
-sanjuga@sanjuga:~$ bash file_bash.sh
+sanjuga@sanjuga:~$ time bash file_bash.sh
             Array_bash.sh = greater
             file_bash.sh = greater
             For_bash.sh = smaller
@@ -29,6 +29,9 @@ sanjuga@sanjuga:~$ bash file_bash.sh
             Variable_bash.sh = smaller
             While_bash.sh = greater
 
+            real	0m0.095s
+            user	0m0.039s
+            sys	0m0.040s
 
 Csh:
             foreach file (*.sh)
@@ -41,7 +44,7 @@ Csh:
             end
 
 output:
-sanjuga@sanjuga:~$ csh file_csh.csh
+sanjuga@sanjuga:~$ time csh file_csh.csh
             Array_bash.sh = greater
             For_bash.sh = smaller
             Task5.sh = greater
@@ -55,4 +58,13 @@ sanjuga@sanjuga:~$ csh file_csh.csh
             long_running_program.sh = smaller
             switch_bash.sh = greater
 
+            real	0m0.080s
+            user	0m0.037s
+            sys	0m0.042s
+
+
+
+Comparsion:
+      - "time" command is used to measure the performance of the program.
+      - comparing the performance of both the program, csh performes very well and seems efficient.
 
