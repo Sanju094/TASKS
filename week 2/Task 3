@@ -1,0 +1,58 @@
+Write scripts in both Bash and Csh that prompt the user for input and perform different actions based on the input.
+
+
+code.sh:
+      read -p "enter the number:  " a
+      aa=()
+      
+      if [ $a -lt 0 ]; then
+      exit 1
+      fi
+      
+      for((i = 1;i <= $a;i++))
+      do
+      aa+=($((a * i)))
+      done
+      
+      echo "${aa[@]}"
+
+In this program the if condition is the error handling which checks whether the number is positive or negative.
+The input is get from the user.
+
+output:
+sanjuga@sanjuga:~$  bash code.sh
+                    enter the number:   3
+                    3 6 9
+
+
+code.csh
+        echo " Enter the number: "
+        set a = $<
+        
+        if ($a < 0) then
+        echo "it is less than 0"
+        exit 1
+        endif
+        
+        set aa = ()
+        @ i = 1
+        while($i <= $a)
+        set aa = ($aa  `expr $a \* $i`)
+        @ i++
+        end
+        
+        echo $aa
+
+output:
+sanjuga@sanjuga:~$  csh code.csh
+                    enter the number:   5
+                    5 10 15 20 25
+
+
+
+Both code has the same logic of printing the tables upto the given input number.
+The difference in both the code is syntax only, the changes are given below
+        reading the input from the user
+        if syntax
+        looping syntax
+        Arithmetic operation syntax.
