@@ -1,0 +1,88 @@
+Write scripts in both bash and csh that define a function, accept parameters, and return a value.
+Write a script that uses if/then/else, and case statements.
+
+Bash:
+
+            sum(){
+            a=$(( $1 + $2))
+            if [ $a -gt 5 ]; then
+            echo "$((a+5))"
+            else
+            echo "$a"
+            fi
+            }
+            
+            read -p "num1: " a
+            read -p "num2: " b
+            result=$( sum a b )
+            
+            echo "result : $result"
+            
+            case $result in
+            1)
+            echo "Sunday"
+            ;;
+            2)
+            echo "Monday"
+            ;;
+            3)
+            echo "Tuesday"
+            ;;
+            4)
+            echo "Wednesday"
+            ;;
+            5)
+            echo "Thursday"
+            ;;
+            6)
+            echo "Friday"
+            ;;
+            7)
+            echo "Saturday"
+            ;;
+            *)
+            echo "The value is greater than 7"
+            ;;
+            
+            esac
+
+
+csh:
+            set a = $<
+            set b = $<
+            @ result = $a + $b
+            if ( $result > 5 ) then
+            	@ result = $result + 5
+            endif
+            
+            echo "$result"
+            
+            switch ($result)
+            case 1:
+            echo "Sunday"
+            breaksw
+            case 2:
+            echo "Monday"
+            breaksw
+            case 3:
+            echo "Tuesday"
+            breaksw
+            case 4:
+            echo "wednesday"
+            breaksw
+            case 5:
+            echo "Thursday"
+            breaksw
+            case 6:
+            echo "Friday"
+            break
+            case 7:
+            echo "Saturday"
+            breaksw
+            default:
+            echo "more than 7"
+            exit 1
+            endsw
+
+
+Csh do not has the concept of functions.
