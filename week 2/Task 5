@@ -1,1 +1,37 @@
 
+
+
+Bash:
+It is the default language in linux.
+
+
+ls - list all the files in the directory
+pwd - print the directory in which currently we are
+alias (eg : alias rithi “pwd”) - to set the name for commands
+unalias - remove the name set to commands (eg: unalias rithi)
+history - shows all the commands that are ran in the terminal until now.
+!! - runs the previous command
+!1 - runs the first command in the history
+!-1 - runs the last command in the  history
+head -displays the first line in the file
+tail - displays the last line in the file
+        top - displays information about the process for some minutes
+        ps - displays information about the currently running program
+
+
+Csh(Cshell)
+        It is not a default language so to change the terminal to csh run the command csh in the terminal.
+        Csh also have most of the commands used by bash.
+        Comparing to bash csh is more interactive.
+        These commands do not directly run in the csh for that we should write .cshrc file.
+
+To run "history" command .cshrc should be written in that history can store these number of commands should be specified.
+
+alias(alias sanju "ls -l") - keep the alias name for ls command.
+
+fg - brings the background jobs to the foreground
+bg - move the process to the background
+jobs - lists the stopped and running process
+setenv - set the environment variable
+unsetenv - unset the environment variable
+sort - sort lines of the text
