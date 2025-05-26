@@ -1,0 +1,3 @@
+PIPES:
+  One-way communication.
+  communication between related pipes(parent-child relationship)
