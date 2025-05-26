@@ -3,14 +3,20 @@ Inter-process communication:
     It can be done using various techniques such as pipes, queues, shared memory, sockets, semophore etc...
     Ipc is needed when different process need to communicate, share data etc...
 
-Synchronization:
-    While one process is reading or writing shared memory, all other processes must wait until it's done.
-
           pipes -> one-way communication.
                    Communication between related process.
           Message queue -> message are send and received through queue.
           Shared Memory -> Multiple process can access same memory space.
           sockets -> communication of process between the network.
+          semaphore -> synchronization tool(signals the next process to go in)
 
 
+Synchronization:
+    While one process is reading or writing shared memory, all other processes must wait until it's done.
+
+
+How to choose the right IPC mechanism?
+    type of data being shared.
+    communication pattern.
+    performance requirements.
     
