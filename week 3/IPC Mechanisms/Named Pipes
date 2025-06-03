@@ -1,3 +1,63 @@
 NAMED PIPES:
   Connection between unrelated process -> don't share memory, files descriptors, there is no relation between those process.
   It is also like a regular pipes, but exist in file system, so any process can open and use them.
+  First In First Out.
+  The path can be created by myfifo().
+  The data can be send from one program to another program only as a pointer variable.
+
+
+Writer.c:
+
+#include<stdio.h>
+#include<string.h>
+#include<unistd.h>
+#include<fcntl.h>
+
+int main()
+{
+int fd = open("myfifo",O_WRONLY);    // myfifo is the name of the pipe
+
+char s[100];
+scanf("%s",s);
+int l = strlen(s);
+write(fd,&l,sizeof(l));   //The data should be passed as a pointer(address) to the variable fd.
+close(fd);
+} 
+
+Reader.c:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(){
+
+int len;
+int fd = open("myfifo",O_RDONLY);
+read(fd,&len,sizeof(len));         // The data will be read and saved into the pointer variable only.
+close(fd);
+
+if(len%2 == 0)
+printf("Even");
+
+else
+printf("Odd");
+
+}
+
+
+ The string length is passed from writer program and in the reader program the len is read and checking whether the len is odd or even.
+
+
+Running commands:
+  mkfifo myfifo // first run this command in the terminal
+
+Run the below command in terminal 1:
+  gcc writer.c -o writer.c
+  ./writer.c
+
+Run the below command in the terminal 2:
+  gcc reader.c -o reader.c
+  ./reader.c
+ 
