@@ -1,0 +1,54 @@
+SHARED MEMORY:
+  Faster data transfer(no copying data takes place) => all processes access the same memory location.
+  In shared memory, data is not sent or copied — it is shared, and all processes read/write to the same place in memory.
+  Communication between multiple processes.
+EG: Like a bulletin board, any process can write and it can be read by multiple process
+  To manage the access to write we should use some techniques like synchronization, semophore etc...
+  Any process that wants to use shared memory (read or write) must attach it using
+
+
+Example:
+Writer.c:
+    #include<stdio.h>
+    #include<stdlib.h>
+    #include<sys/shm.h>
+    #include<sys/ipc.h>
+    
+    int main(){
+    key_t id = ftok("shh1", 65);                    // creating the unique id for the shared memory 
+    int shmid = shmget(id,sizeof(int), 0666|IPC_CREAT);   //create the shared memory segment
+    int *aa = (int*) shmat(shmid,NULL,0);     //attaching the memory to the process
+    int c;
+    printf("Enter the value");
+    scanf("%d",&c);
+    *aa = c+1;                                    // here the passing data gets stored in *aa variable
+    shmdt(aa);                                    // detaching the shared memory
+    return 0;
+    }
+
+Reader.c:
+    #include<stdio.h>
+    #include<stdlib.h>
+    #include<sys/shm.h>
+    #include<sys/ipc.h>
+    #include<string.h>
+    
+    int main(){ 
+    key_t t = ftok("shh1",65);
+    int shmid = shmget(t, sizeof(int),0666);    //0666 - > represent the read-write permissions
+    int *aa = (int*)shmat(shmid, NULL,0);        //storing the passed data from the writer.c
+    printf("%d",*aa);
+    shmdt(aa);
+    shmctl(shmid,IPC_RMID, NULL);              //removing the shared memory
+    return 0;
+    }
+
+Compilation:
+
+ 1. touch shh1    //create a file 
+ 2. gcc writer.c -o writer
+    ./writer
+ 3. gcc reader.c -o reader
+    ./reader
+
+run all these commands in the same terminal one by one.
