@@ -1,1 +1,3 @@
-
+NAMED PIPES:
+  Connection between unrelated process -> don't share memory, files descriptors, there is no relation between those process.
+  It is also like a regular pipes, but exist in file system, so any process can open and use them.
