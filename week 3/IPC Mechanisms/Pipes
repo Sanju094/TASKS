@@ -1,3 +1,55 @@
 PIPES:
   One-way communication.
   communication between related pipes(parent-child relationship)
+
+
+example:
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>      //it contains the inbuilt function pipe()
+#include<string.h>
+#include<sys/wait.h>
+
+int main(){
+
+int pipes[2];
+pid_t pid;
+char wr[100];
+char s[] = "hello how are you";
+
+if(pipe(pipes) == -1)
+{
+perror("Pipe not created");
+exit(1);
+}
+pid = fork();
+if(pid < 0)
+{
+perror("fork failed");
+exit(1);
+}
+if(pid == 0)                   //child process
+{
+close(pipes[1]);
+read(pipes[0],wr,sizeof(wr));    //reading from the pipes[0] and storing it in the wr.
+printf("Received: %s",wr);
+close(pipes[0]);
+}
+else{                        //parent process
+close(pipes[0]);
+write(pipes[1],s,strlen(s)+1);    // writing the string s into the pipes[1].
+close(pipes[1]);
+wait(NULL);
+}
+return 0;
+}
+
+pipes is used for communication 
+fork is used to create a receiver
+
+fork is used because pipes will connect sender and the receiver. one will write and one will read.
+
+child ->read
+parent ->write
+
